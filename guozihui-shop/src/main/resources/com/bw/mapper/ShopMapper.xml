@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace:工作空间的名称   名称随意
+ -->
+ <!-- 如果做接口映射，namespace需要添加映射接口的全限定名称  -->
+<mapper namespace="com.bw.mapper.ShopDao">
+	
+	<select id="findAll" resultType="com.bw.entity.Shop" parameterType="map">
+
+SELECT  s.sid,s.sname,s.indate,GROUP_CONCAT(b.bname)cname from shop s, buss b ,bu_sh bs where s.sid=bs.sid and b.bid=bs.bid GROUP BY s.sid
+	<if test="name!=null and name!=''">
+		and s.sname like CONCAT("%",#{name},"%")
+	</if>
+	<if test="bid!=null">
+		and b.bid=#{bid}
+	</if>
+	
+	</select>
+	
+	<select id="findbid" resultType="com.bw.entity.Buss">
+	select * from buss
+	</select>
+	
+	<insert id="addshop" parameterType="com.bw.entity.Shop">
+		insert into shop 
+		(sname,indate) 
+		values
+		(#{sname},#{indate})
+	</insert>
+	
+	<insert id="addbus" parameterType="map">
+		insert into bu_sh 
+		(sid,bid) 
+		values
+		(#{sid},#{bid})
+	</insert>
+	
+	<select id="chakan" resultType="com.bw.entity.Shop" parameterType="int">
+		SELECT  s.sid,s.sname,s.indate,b.bname from shop s, buss b ,bu_sh bs where s.sid=bs.sid and b.bid=bs.bid and s.sid=#{0}
+	</select>
+	
+	<delete id="delbus" parameterType="string">
+		delete from shop where sid in (${_parameter})
+	</delete>
+	
+</mapper>
