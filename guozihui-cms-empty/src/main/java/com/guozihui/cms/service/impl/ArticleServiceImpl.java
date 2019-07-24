@@ -86,6 +86,18 @@ public class ArticleServiceImpl implements ArticleService {
 		// TODO Auto-generated method stub
 		articleMapper.deleteByPrimaryKey(id);
 	}
+
+	@Override
+	public void increaseHit(Integer id) {
+		// TODO Auto-generated method stub
+		articleMapper.increaseHit(id);
+	}
+
+	@Override
+	public List<Article> queryHotAll(Article article) {
+		// TODO Auto-generated method stub
+		return articleMapper.queryHotAll(article);
+	}
 	
 	
 }

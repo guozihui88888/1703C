@@ -71,4 +71,7 @@ public interface ArticleMapper {
 
 	public void deleteByPrimaryKey(Integer id);
 
+
+	public List<Article> queryHotAll(@Param("article")Article article);
+
 }

@@ -18,4 +18,9 @@ public interface UserService {
 	public abstract User get(String username);
 
 	public int count(User user);
+
+	public abstract void updatebyId(User user);
+
+	public abstract User selectById(Integer id);
+
 }

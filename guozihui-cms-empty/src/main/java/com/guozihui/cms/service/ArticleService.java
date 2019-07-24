@@ -40,6 +40,10 @@ public interface ArticleService {
 
 
 	public abstract void deleteByPrimaryKey(Integer id);
+
+	public abstract void increaseHit(Integer id);
+
+	public abstract List<Article> queryHotAll(Article article);
 	
 
 }
