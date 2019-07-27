@@ -19,7 +19,7 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, username, password, nickname, birthday, gender, locked, created, updated,phone,email,star,address,motto
+    id, username, password, nickname, birthday, gender, locked, created, updated,phone,email,star,address,motto,avatar
   </sql>
   
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -127,5 +127,10 @@
       </if>
   	 	</set>  	 	
   	 	where id=#{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<update id="UpdateAvatar" parameterType="com.guozihui.cms.domain.User">
+  		update cms_user set
+  		avatar=#{avatar} where id=#{id}
   	</update>
 </mapper>

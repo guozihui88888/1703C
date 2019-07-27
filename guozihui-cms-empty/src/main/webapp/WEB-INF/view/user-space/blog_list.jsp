@@ -76,7 +76,14 @@
 				    		<tbody class="">
 				    		<c:forEach items="${blogs}" var="blog">
 				    			<tr id="item_${blog.id}">
-				    				<td>${blog.title}</td>
+				    				<td>${blog.title}
+				    					<div class="small text-secondary">
+				    					分类：${article.channel.name}>${article.category.name}&nbsp;&nbsp;&nbsp;
+				    					标签：&nbsp;&nbsp;
+				    					浏览：${article.hits}&nbsp;&nbsp;
+				    					发布时间 <fmt:formatDate value="${article.updated}" pattern="yyyy-MM-dd"/>
+				    					</div>
+				    				</td>
 				    				<td>${blog.hot?'是':'否'}</td>
 				    				<td>${blog.status==1?'已审核':'未审核'}</td>
 				    				<td>${blog.deleted?'是':'否'}</td>

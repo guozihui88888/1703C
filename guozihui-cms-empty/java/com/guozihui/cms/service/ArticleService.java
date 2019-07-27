@@ -1,5 +1,6 @@
 package com.guozihui.cms.service;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
+import com.guozihui.cms.domain.Special;
 import com.guozihui.cms.domain.User;
 
 /**
@@ -44,6 +46,24 @@ public interface ArticleService {
 	public abstract void increaseHit(Integer id);
 
 	public abstract List<Article> queryHotAll(Article article);
+
+	public abstract void updatearticle(Integer id);
+
+	public abstract List<Special> findspecial();
+
+	public abstract List<Special> findbyspecial();
+
+	public abstract int addspp(Special special);
+
+	public abstract List<Article> findarticle(Integer id);
+
+	public abstract int removespec(Integer id);
+
+	public abstract int addspecial(HashMap<String, Object> hashMap);
+
+	public abstract Special updatespe(Integer id);
+
+	public abstract int updateAll(Special special);
 	
 
 }

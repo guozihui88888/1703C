@@ -25,14 +25,14 @@
           </div>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link" href="/admin/categories">
+          <a class="nav-link" href="/admin/findbyspecial">
             <i class="fas fa-fw fa-folder"></i>
             <span>文章管理</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/admin/categories">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>用户管理</span></a>
+          <a class="nav-link" href="/admin/findarticle">
+            <i class="fas fa-fw fa-chart-area"></i> 
+            <span>专题文章设置</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/admin/categories">

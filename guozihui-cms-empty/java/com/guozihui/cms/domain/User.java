@@ -57,6 +57,14 @@ public class User implements Serializable {
 	private String star;
 	private String phone;
 	private String motto;
+	private String avatar;
+	
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 	public Integer getId() {
 		return id;
 	}

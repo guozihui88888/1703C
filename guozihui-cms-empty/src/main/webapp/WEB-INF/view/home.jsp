@@ -139,6 +139,20 @@
 							</c:forEach>
 						</ol>
 					</div>
+					
+					<div class="card-header">专题</div>
+					<div class="card-body">
+						<ol>
+							<c:forEach items="${list}" var="s">
+							<li class="text-truncate">
+							<span class="red">
+							${s.title}
+							</span>
+							</li>
+							<li class="text-truncate">摘要：${s.abstracted}</li>
+							</c:forEach>
+						</ol>
+					</div>
 				</div>
 			</div>
 		</div>

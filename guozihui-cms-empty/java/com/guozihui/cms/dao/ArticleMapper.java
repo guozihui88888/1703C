@@ -3,6 +3,7 @@
  */
 package com.guozihui.cms.dao;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
+import com.guozihui.cms.domain.Special;
 
 
 /**
@@ -73,5 +75,32 @@ public interface ArticleMapper {
 
 
 	public List<Article> queryHotAll(@Param("article")Article article);
+
+
+	public void updatearticle(Integer id);
+
+
+	public List<Special> findspecial();
+
+
+	public List<Special> findbyspecial();
+
+
+	public int addspp(Special special);
+
+
+	public List<Article> findarticle(Integer id);
+
+
+	public int removespec(Integer id);
+
+
+	public int addspecial(HashMap<String, Object> hashMap);
+
+
+	public Special updatespe(Integer id);
+
+
+	public int updateAll(Special special);
 
 }

@@ -3,6 +3,10 @@
  */
 package com.guozihui.cms.web.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,12 +17,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
 import com.guozihui.cms.domain.Category;
 import com.guozihui.cms.domain.Channel;
 import com.guozihui.cms.domain.Slide;
+import com.guozihui.cms.domain.Special;
 import com.guozihui.cms.service.ArticleService;
 import com.guozihui.cms.service.SlideService;
 
@@ -89,6 +95,9 @@ public class HomeController {
 		if(channel != null){
 			model.addAttribute("channel", new Channel(channel));
 		}
+		
+		List<Special> list =articleService.findspecial();
+		model.addAttribute("list", list);
 		model.addAttribute("category", category);
 		
 		return "home";
@@ -107,4 +116,81 @@ public class HomeController {
 	}
 	
 	
+	@RequestMapping("/admin/findbyspecial")
+	public String findbyspecial(ModelMap map){
+		
+		List<Special> listsp =articleService.findbyspecial();
+		map.addAttribute("listsp", listsp);
+		return "/admin/homespecial";
+		
+	}
+	@RequestMapping("/admin/addspecial")
+	public String addspecial(ModelMap map){
+		return "/admin/addspecial";
+		
+	}
+	@RequestMapping("/admin/addspp")
+	public String addspp(ModelMap map,Special special){
+		int i =articleService.addspp(special);
+		return "/admin/homespecial";
+		
+	}
+	@RequestMapping("/admin/findarticle")
+	public String findarticle(ModelMap map,Integer id){
+		System.out.println(id);
+		List<Article> listart =articleService.findarticle(id);
+		System.out.println(listart);
+		map.addAttribute("listart", listart);
+		map.addAttribute("sid",id);
+		return "/admin/homelist";
+		
+	}
+	@RequestMapping("/admin/removespec")
+	public String removespec(ModelMap map,Integer id){
+		int i =articleService.removespec(id);
+		if(i>0){
+			map.addAttribute("移除成功", "delmsg");
+			return "/admin/homelist";
+		}
+		return null;
+		
+	}
+	@RequestMapping("/admin/jiaspecial")
+	public String addspecial(ModelMap map,Integer aid,Integer sid){
+		HashMap<String, Object> hashMap = new HashMap<String,Object>();
+		System.out.println(sid);
+		hashMap.put("aid", aid);
+		hashMap.put("sid", sid);
+		
+		int i = articleService.addspecial(hashMap);
+		
+		
+		return "redirect:/admin/findbyspecial";
+		
+	}
+	@RequestMapping("/admin/updatespe")
+	@ResponseBody
+	public Special updatespe(ModelMap map,Integer id) throws ParseException{
+		Special special = articleService.updatespe(id);
+		String string = special.getCreated();
+		String[] split = string.split(" ");
+		special.setCreated(split[0]);
+		return special;
+		
+	}
+	
+	@RequestMapping("/admin/update")
+	public String update(ModelMap map,Integer id){
+		map.addAttribute("id",id);
+		return "/admin/updatespe";
+		
+	}
+	
+	@RequestMapping("/admin/updateAll")
+	public String updateAll(ModelMap map,Special special){
+		int i =articleService.updateAll(special);
+		
+		return "redirect:/admin/findbyspecial";
+		
+	}
 }

@@ -23,4 +23,6 @@ public interface UserService {
 
 	public abstract User selectById(Integer id);
 
+	public abstract void UpdateAvatar(User user);
+
 }

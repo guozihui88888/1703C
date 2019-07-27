@@ -57,6 +57,12 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectById(id);
 	}
 
+	@Override
+	public void UpdateAvatar(User user) {
+		// TODO Auto-generated method stub
+		userMapper.UpdateAvatar(user);
+	}
+
 
 	
 }

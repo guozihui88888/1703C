@@ -4,6 +4,7 @@
 package com.guozihui.cms.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.guozihui.cms.core.Page;
 import com.guozihui.cms.dao.ArticleMapper;
 import com.guozihui.cms.domain.Article;
+import com.guozihui.cms.domain.Special;
 import com.guozihui.cms.domain.User;
 import com.guozihui.cms.service.ArticleService;
 import com.guozihui.cms.web.Constant;
@@ -97,6 +99,60 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> queryHotAll(Article article) {
 		// TODO Auto-generated method stub
 		return articleMapper.queryHotAll(article);
+	}
+
+	@Override
+	public void updatearticle(Integer id) {
+		// TODO Auto-generated method stub
+		articleMapper.updatearticle(id);
+	}
+
+	@Override
+	public List<Special> findspecial() {
+		// TODO Auto-generated method stub
+		return articleMapper.findspecial();
+	}
+
+	@Override
+	public List<Special> findbyspecial() {
+		// TODO Auto-generated method stub
+		return articleMapper.findbyspecial();
+	}
+
+	@Override
+	public int addspp(Special special) {
+		// TODO Auto-generated method stub
+		return articleMapper.addspp(special);
+	}
+
+	@Override
+	public List<Article> findarticle(Integer id) {
+		// TODO Auto-generated method stub
+		return articleMapper.findarticle(id);
+	}
+
+	@Override
+	public int removespec(Integer id) {
+		// TODO Auto-generated method stub
+		return articleMapper.removespec(id);
+	}
+
+	@Override
+	public int addspecial(HashMap<String, Object> hashMap) {
+		// TODO Auto-generated method stub
+		return articleMapper.addspecial(hashMap);
+	}
+
+	@Override
+	public Special updatespe(Integer id) {
+		// TODO Auto-generated method stub
+		return articleMapper.updatespe(id);
+	}
+
+	@Override
+	public int updateAll(Special special) {
+		// TODO Auto-generated method stub
+		return articleMapper.updateAll(special);
 	}
 	
 	

@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="avatar">
-	<img alt="" src="/images/default_avatar.png" class="img-thumbnail">
+
+	<c:choose>
+	<c:when test="${_LOGIN_USER_.avatar!=null && _LOGIN_USER_.avatar!=''}">
+	<img alt="" src="<%=request.getContextPath()%>${_LOGIN_USER_.avatar}" class="img-thumbnail" style="width: 100px">
+	</c:when>
+	<c:otherwise>
+		<img alt="" src="/images/logo.png" class="img-thumbnail" style="width: 100px">
+	</c:otherwise>
+	</c:choose>
 	</div>
 	<br/>
 	<div>

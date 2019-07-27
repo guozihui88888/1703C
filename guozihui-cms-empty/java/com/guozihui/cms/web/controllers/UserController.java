@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,7 +104,7 @@ public class UserController {
 	
 	@RequestMapping("/blog/remove")
 	public Boolean delete(Integer id){
-		articleService.deleteByPrimaryKey(id);
+		articleService.updatearticle(id);
 		return true;
 	}
 	
@@ -173,5 +174,30 @@ public class UserController {
 		return "user-space/blog_list";
 			
 			
+	}
+	@RequestMapping("/profile/avatar")
+	public String avatar(HttpServletRequest request,ModelMap map){
+		User u =(User) request.getSession().getAttribute(Constant.LOGIN_USER);
+		map.addAttribute("user", u);
+		return "user-space/avatar";
+		
+	}
+	
+	@RequestMapping("/avatar/edit")
+	public String edit(HttpServletRequest request,ModelMap map,User user,MultipartFile file){
+		User u =(User) request.getSession().getAttribute(Constant.LOGIN_USER);
+		
+		String upload = FileUploadUtil.upload(request, file);
+		if(upload.equals("")){
+			map.put("msg", "您还没有选择头像");
+			return "redirect:/my/profile/avatar";
+		}
+		user.setAvatar(upload);
+		userService.UpdateAvatar(user);
+		User user2 = userService.get(user.getId());
+		request.getSession().setAttribute(Constant.LOGIN_USER,user2);
+		map.put("msg", "头像上传成功");
+		return "redirect:/my/profile/avatar";
+		
 	}
 }

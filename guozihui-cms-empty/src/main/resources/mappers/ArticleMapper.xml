@@ -408,5 +408,52 @@
     </if>    
   </select>
   
+  <update id="updatearticle" parameterType="int">
+  	update  cms_article 
+  	set deleted=1 where id=#{id}
+  </update>
   
+  <select id="findspecial" resultType="com.guozihui.cms.domain.Special">
+  		select * from cms_special 
+  </select>	
+  
+  <select id="findbyspecial" resultType="com.guozihui.cms.domain.Special">
+  	
+
+SELECT sp.id,sp.title,COUNT(*)acount FROM cms_article ar,cms_special sp,cms_special_article spa WHERE sp.id=spa.sid AND ar.id=spa.aid GROUP BY sp.id
+  </select>
+  
+  <insert id="addspp" parameterType="com.guozihui.cms.domain.Special">
+  	insert into cms_special
+  	(title,abstracted,created)
+  	values
+  	(#{title},#{abstracted},#{created})
+  </insert>
+  
+  <select id="findarticle" resultType="com.guozihui.cms.domain.Article" parameterType="int">
+  		
+
+SELECT  * from cms_article ca,cms_special cs WHERE cs.id=ca.sid AND cs.id=#{id}
+  </select>
+  
+  <delete id="removespec" parameterType="int">
+  	DELETE from cms_special_article WHERE aid=#{0}
+  </delete>
+  
+  <insert id="addspecial" parameterType="map">
+  		INSERT into cms_special_article (sid,aid) VALUES
+  		(#{sid},#{aid})
+  </insert>
+  
+  <select id="updatespe" resultType="com.guozihui.cms.domain.Special" parameterType="int">
+  	select * from cms_special where id=#{id}
+  </select>
+  
+  <update id="updateAll" parameterType="com.guozihui.cms.domain.Special">
+  	update cms_special 
+  	set title=#{title},abstracted=#{abstracted},created=#{created}
+  	where
+  	id=#{id}
+  	
+  </update>
 </mapper>

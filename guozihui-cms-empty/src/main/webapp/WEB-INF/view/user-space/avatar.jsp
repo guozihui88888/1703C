@@ -43,6 +43,14 @@
 				  <div class="panel-body">
 				   <h1>我的头像</h1>
 				    	<hr/>
+				    	<form action="/my/avatar/edit" enctype="multipart/form-data" method="post">
+				    <!-- 	<img alt="" src="/images/default_avatar.png" class="img-thumbnail"><br> -->
+				    	<input type="hidden" value="${user.id}" name="id">
+				    	<img alt="" src="<%=request.getContextPath()%>${user.avatar}" class="img-thumbnail"><br>
+				    	<input type="file" name="file" ><br>
+				    	<button type="submit" class="btn btn-info btn-block">保存</button> 
+				    	<span style="color: red">${msg}</span>
+				    	</form>
 				  </div>
 				</div>
 				

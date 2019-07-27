@@ -20,7 +20,14 @@
     <c:when test="${_LOGIN_USER_  != null}">
    	 <li class="nav-item">
    		<a class="nav-link" href="/my/home">
-		<img alt="" src="/images/default_avatar.png" style="max-height: 2.5rem" class="rounded img-fluid">
+		<c:choose>
+	<c:when test="${_LOGIN_USER_.avatar!=null && _LOGIN_USER_.avatar!=''}">
+	<img alt="" src="<%=request.getContextPath()%>${_LOGIN_USER_.avatar}" class="img-thumbnail" style="width: 100px">
+	</c:when>
+	<c:otherwise>
+		<img alt="" src="/images/logo.png" class="img-thumbnail" style="width: 100px">
+	</c:otherwise>
+	</c:choose>
    		</a>
    	 </li>
    	 <li class="nav-item">
