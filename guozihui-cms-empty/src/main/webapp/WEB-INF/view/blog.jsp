@@ -53,10 +53,58 @@
     				 </a>
 				</div>
 				<hr/>
-				<div class="content">
-					${blog.content}
-				</div>
-				<div class="text-right">发布时间：<fmt:formatDate value="${blog.created}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+				<!-- 幻灯片 -->
+				<c:if test="${not empty pictures}">
+						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						  <ol class="carousel-indicators">
+						  	<c:forEach items="${pictures}" var="pictures" varStatus="status">
+							   <li data-target="#carouselExampleIndicators" data-slide-to="${status.count}"></li>
+						  	</c:forEach>
+						  </ol>
+						   <div class="carousel-inner">
+						  	<c:forEach items="${pictures}" var="picture" varStatus="idx">
+						  		  <div class="carousel-item ${idx.index==0 ? 'active' : ''}">
+							      <img class="d-block w-100" src="<%=request.getContextPath()%>${picture.photo}" alt="${picture.photo}">
+							      <div class="carousel-caption d-none d-md-block">
+								    <h5>${picture.desc}</a></h5>
+								  </div>
+							    </div>
+						  	</c:forEach>
+						  </div>
+						  
+						  
+						  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Previous</span>
+						  </a>
+						  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Next</span>
+						  </a>
+						</div>
+						</c:if>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<%-- <div class="text-right">发布时间：<fmt:formatDate value="${blog.created}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 				
 				<hr/>
 				
@@ -76,7 +124,7 @@
 						  </div>
 						</div>
 					</c:forEach>
-				</div>
+				</div> --%>
 				<div>
 					<form id="comment" name="comment" method="post">
 						<input type="hidden" name="blog.id" id="blogId" value="${ blog.id}"/>

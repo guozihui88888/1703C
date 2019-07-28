@@ -58,6 +58,13 @@
 				    		<select id="category" name="category.id"></select>
 				    	</p>
 				    	<p>
+				    		<button type="button"  class="btn btn-info btn-block" onclick="addpic()" style="width: 330px">添加图片</button> 
+				    		<div  id="addpic">
+				    		
+				    		</div>
+				    	</p>
+				    	
+				    	<p>
 				    		<input name="title" value="${blog.title}" class="form-control" placeholder="博客标题"/>
 				    		<span class="red"></span>
 				    	</p>
@@ -141,6 +148,9 @@
 				}
 			});
 		});
+		function addpic(){
+			$("#addpic").append("</br><input type='file' name='photo' ><br><input name='desc'  class='form-control' placeholder='图片描述'/> ")
+		}
 	</script>
   </body>
 </html>

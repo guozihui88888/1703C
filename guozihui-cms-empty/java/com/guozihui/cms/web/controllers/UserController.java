@@ -3,6 +3,7 @@ package com.guozihui.cms.web.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
 import com.guozihui.cms.domain.Category;
 import com.guozihui.cms.domain.Channel;
+import com.guozihui.cms.domain.Picture;
 import com.guozihui.cms.domain.User;
 import com.guozihui.cms.service.ArticleService;
 import com.guozihui.cms.service.UserService;
@@ -91,12 +95,31 @@ public class UserController {
 	
 	//发布博客的内容
 	@RequestMapping("/blog/save")
-	public String blog_save(Article article ,MultipartFile file,HttpServletRequest request){
+	public String blog_save(Article article , MultipartFile file,HttpServletRequest request,MultipartFile[] photo,String[] desc){
+		List<Picture> pictures =new ArrayList<Picture>();
+		
+		for (int i = 0; i < desc.length; i++) {
+			Picture picture = new Picture();
+			String upload = FileUploadUtil.upload(request, photo[i]);
+			if(!upload.equals("")){
+				picture.setPhoto(upload);
+			}
+			if(!upload.equals("")){
+				picture.setDesc(desc[i]);
+			}
+			if(picture!=null){
+				pictures.add(picture);
+			}
+		}
 		
 		String upload = FileUploadUtil.upload(request, file);
 		if(!upload.equals("")){
 			article.setPicture(upload);
 		}
+		if(pictures!=null){
+			article.setContent(JSON.toJSONString(pictures));
+		}
+		
 		articleService.bolgSaveOrUpdate(article,request);
 		return "redirect:/my/blogs";
 			

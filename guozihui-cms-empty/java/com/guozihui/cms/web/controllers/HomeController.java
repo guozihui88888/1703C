@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
 import com.guozihui.cms.domain.Category;
 import com.guozihui.cms.domain.Channel;
+import com.guozihui.cms.domain.Picture;
 import com.guozihui.cms.domain.Slide;
 import com.guozihui.cms.domain.Special;
 import com.guozihui.cms.service.ArticleService;
@@ -108,9 +110,12 @@ public class HomeController {
 	public String article (Integer id,ModelMap map){
 		
 		articleService.increaseHit(id);
-		Article article = articleService.selectByPrimaryKey(id);
-		
-		map.addAttribute("blog", article);
+		Article selectByPrimaryKey = articleService.selectByPrimaryKey(id);
+		if(selectByPrimaryKey.getContent()!=null && selectByPrimaryKey.getContent().length()>0){
+			List<Picture> parseArray = JSONArray.parseArray(selectByPrimaryKey.getContent(), Picture.class);
+			map.put("pictures", parseArray);
+		}
+		map.addAttribute("blog", selectByPrimaryKey);
 		return "blog";
 		
 	}
