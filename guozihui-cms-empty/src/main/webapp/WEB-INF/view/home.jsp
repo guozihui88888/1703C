@@ -140,7 +140,7 @@
 						</ol>
 					</div>
 					
-					<div class="card-header">专题</div>
+				<%-- 	<div class="card-header">专题</div>
 					<div class="card-body">
 						<ol>
 							<c:forEach items="${list}" var="s">
@@ -153,8 +153,9 @@
 							</c:forEach>
 						</ol>
 					</div>
-				</div>
-			</div>
+				</div> --%>
+
+
 		</div>
 	</div>
 	

@@ -70,9 +70,7 @@
 								  </div>
 							    </div>
 						  	</c:forEach>
-						  </div>
-						  
-						  
+						  </div>				  
 						  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						    <span class="sr-only">Previous</span>
@@ -85,24 +83,7 @@
 						</c:if>
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
 				
 				<%-- <div class="text-right">发布时间：<fmt:formatDate value="${blog.created}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 				

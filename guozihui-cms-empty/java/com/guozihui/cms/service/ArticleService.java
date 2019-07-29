@@ -37,33 +37,8 @@ public interface ArticleService {
 
 	public abstract Article selectByPrimaryKey(Integer id);
 
-	public abstract void bolgSaveOrUpdate(Article article,
-			HttpServletRequest request);
 
 
-	public abstract void deleteByPrimaryKey(Integer id);
-
-	public abstract void increaseHit(Integer id);
-
-	public abstract List<Article> queryHotAll(Article article);
-
-	public abstract void updatearticle(Integer id);
-
-	public abstract List<Special> findspecial();
-
-	public abstract List<Special> findbyspecial();
-
-	public abstract int addspp(Special special);
-
-	public abstract List<Article> findarticle(Integer id);
-
-	public abstract int removespec(Integer id);
-
-	public abstract int addspecial(HashMap<String, Object> hashMap);
-
-	public abstract Special updatespe(Integer id);
-
-	public abstract int updateAll(Special special);
 	
 
 }

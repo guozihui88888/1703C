@@ -65,42 +65,6 @@ public interface ArticleMapper {
 	public Article selectByPrimaryKey(Integer id);
 
 
-	public void bolgSaveOrUpdate(Article article, HttpServletRequest request);
 
-
-	public void update(Article article);
-
-
-	public void deleteByPrimaryKey(Integer id);
-
-
-	public List<Article> queryHotAll(@Param("article")Article article);
-
-
-	public void updatearticle(Integer id);
-
-
-	public List<Special> findspecial();
-
-
-	public List<Special> findbyspecial();
-
-
-	public int addspp(Special special);
-
-
-	public List<Article> findarticle(Integer id);
-
-
-	public int removespec(Integer id);
-
-
-	public int addspecial(HashMap<String, Object> hashMap);
-
-
-	public Special updatespe(Integer id);
-
-
-	public int updateAll(Special special);
 
 }

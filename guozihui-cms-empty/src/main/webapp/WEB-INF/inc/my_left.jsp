@@ -4,7 +4,7 @@
 
 	<c:choose>
 	<c:when test="${_LOGIN_USER_.avatar!=null && _LOGIN_USER_.avatar!=''}">
-	<img alt="" src="<%=request.getContextPath()%>${_LOGIN_USER_.avatar}" class="img-thumbnail" style="width: 100px">
+	<%-- <img alt="" src="<%=request.getContextPath()%>${_LOGIN_USER_.avatar}" class="img-thumbnail" style="width: 100px"> --%>
 	</c:when>
 	<c:otherwise>
 		<img alt="" src="/images/logo.png" class="img-thumbnail" style="width: 100px">

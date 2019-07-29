@@ -64,7 +64,7 @@ public class UserController {
 		return "user-space/profile";
 	}
 	
-	@RequestMapping("/blogs")
+	@RequestMapping("/")
 	public <T> String blogs(ModelMap map,@RequestParam(defaultValue="1",required=false)Integer page,HttpSession session){
 	Article article = new Article();
 	
@@ -80,9 +80,7 @@ public class UserController {
 		return "user-space/blog_list";
 		
 	}
-	
-	
-	@RequestMapping("/blog/edit")
+	@RequestMapping("/blog/")
 	public String edit(Integer id,ModelMap map){
 		if(id!=null){
 			Article article = articleService.selectByPrimaryKey(id);
@@ -93,134 +91,5 @@ public class UserController {
 		
 	}
 	
-	//发布博客的内容
-	@RequestMapping("/blog/save")
-	public String blog_save(Article article , MultipartFile file,HttpServletRequest request,MultipartFile[] photo,String[] desc){
-		List<Picture> pictures =new ArrayList<Picture>();
-		
-		for (int i = 0; i < desc.length; i++) {
-			Picture picture = new Picture();
-			String upload = FileUploadUtil.upload(request, photo[i]);
-			if(!upload.equals("")){
-				picture.setPhoto(upload);
-			}
-			if(!upload.equals("")){
-				picture.setDesc(desc[i]);
-			}
-			if(picture!=null){
-				pictures.add(picture);
-			}
-		}
-		
-		String upload = FileUploadUtil.upload(request, file);
-		if(!upload.equals("")){
-			article.setPicture(upload);
-		}
-		if(pictures!=null){
-			article.setContent(JSON.toJSONString(pictures));
-		}
-		
-		articleService.bolgSaveOrUpdate(article,request);
-		return "redirect:/my/blogs";
-			
-	}
-	
-	@RequestMapping("/blog/remove")
-	public Boolean delete(Integer id){
-		articleService.updatearticle(id);
-		return true;
-	}
-	
-	//用户信息的完事和修改
-	@RequestMapping("/user/save")
-	public String usersave(User user,ModelMap map){
-		userService.updatebyId(user);
-		return "redirect:/my/userInfo";
-	}
-	
-	@RequestMapping("/userInfo")
-	public String userInfo(HttpServletRequest request,ModelMap map){
-		User loginUser = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		
-		User user =userService.selectById(loginUser.getId());
-		map.addAttribute("user", user);
-		return "user-space/useredit";
-		
-	}
-	
-	@RequestMapping("/hots")
-	public String hots(HttpServletRequest request,ModelMap map){
-		User loginUser = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		
-		Article article = new Article();
-		article.setAuthor(loginUser);
-		article.setHot(true);
-		List<Article> blogs =articleService.queryHotAll(article);
-		PageInfo<Article> pageInfo = new PageInfo<Article>(blogs);
-		String pageList = PageHelpUtil.page("blogs", pageInfo);
-		map.put("pageList", pageList);
-		map.put("blogs", blogs);
-		return "user-space/blog_list";
-			
-			
-	}
-	
-	@RequestMapping("/review")
-	public String review(HttpServletRequest request,ModelMap map){
-		User loginUser = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		
-		Article article = new Article();
-		article.setAuthor(loginUser);
-		article.setStatus(1);
-		List<Article> blogs =articleService.queryAll(article);
-		PageInfo<Article> pageInfo = new PageInfo<Article>(blogs);
-		String pageList = PageHelpUtil.page("blogs", pageInfo);
-		map.put("pageList", pageList);
-		map.put("blogs", blogs);
-		return "user-space/blog_list";
-			
-			
-	}
-	
-	@RequestMapping("/deleted")
-	public String deleted(HttpServletRequest request,ModelMap map){
-		User loginUser = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		
-		Article article = new Article();
-		article.setAuthor(loginUser);
-		article.setDeleted(true);
-		List<Article> blogs =articleService.queryAll(article);
-		PageInfo<Article> pageInfo = new PageInfo<Article>(blogs);
-		String pageList = PageHelpUtil.page("blogs", pageInfo);
-		map.put("pageList", pageList);
-		map.put("blogs", blogs);
-		return "user-space/blog_list";
-			
-			
-	}
-	@RequestMapping("/profile/avatar")
-	public String avatar(HttpServletRequest request,ModelMap map){
-		User u =(User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		map.addAttribute("user", u);
-		return "user-space/avatar";
-		
-	}
-	
-	@RequestMapping("/avatar/edit")
-	public String edit(HttpServletRequest request,ModelMap map,User user,MultipartFile file){
-		User u =(User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		
-		String upload = FileUploadUtil.upload(request, file);
-		if(upload.equals("")){
-			map.put("msg", "您还没有选择头像");
-			return "redirect:/my/profile/avatar";
-		}
-		user.setAvatar(upload);
-		userService.UpdateAvatar(user);
-		User user2 = userService.get(user.getId());
-		request.getSession().setAttribute(Constant.LOGIN_USER,user2);
-		map.put("msg", "头像上传成功");
-		return "redirect:/my/profile/avatar";
-		
-	}
+
 }

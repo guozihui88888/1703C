@@ -98,104 +98,10 @@ public class HomeController {
 			model.addAttribute("channel", new Channel(channel));
 		}
 		
-		List<Special> list =articleService.findspecial();
-		model.addAttribute("list", list);
 		model.addAttribute("category", category);
 		
 		return "home";
 	}
 	
 	
-	@RequestMapping("article")
-	public String article (Integer id,ModelMap map){
-		
-		articleService.increaseHit(id);
-		Article selectByPrimaryKey = articleService.selectByPrimaryKey(id);
-		if(selectByPrimaryKey.getContent()!=null && selectByPrimaryKey.getContent().length()>0){
-			List<Picture> parseArray = JSONArray.parseArray(selectByPrimaryKey.getContent(), Picture.class);
-			map.put("pictures", parseArray);
-		}
-		map.addAttribute("blog", selectByPrimaryKey);
-		return "blog";
-		
-	}
-	
-	
-	@RequestMapping("/admin/findbyspecial")
-	public String findbyspecial(ModelMap map){
-		
-		List<Special> listsp =articleService.findbyspecial();
-		map.addAttribute("listsp", listsp);
-		return "/admin/homespecial";
-		
-	}
-	@RequestMapping("/admin/addspecial")
-	public String addspecial(ModelMap map){
-		return "/admin/addspecial";
-		
-	}
-	@RequestMapping("/admin/addspp")
-	public String addspp(ModelMap map,Special special){
-		int i =articleService.addspp(special);
-		return "/admin/homespecial";
-		
-	}
-	@RequestMapping("/admin/findarticle")
-	public String findarticle(ModelMap map,Integer id){
-		System.out.println(id);
-		List<Article> listart =articleService.findarticle(id);
-		System.out.println(listart);
-		map.addAttribute("listart", listart);
-		map.addAttribute("sid",id);
-		return "/admin/homelist";
-		
-	}
-	@RequestMapping("/admin/removespec")
-	public String removespec(ModelMap map,Integer id){
-		int i =articleService.removespec(id);
-		if(i>0){
-			map.addAttribute("移除成功", "delmsg");
-			return "/admin/homelist";
-		}
-		return null;
-		
-	}
-	@RequestMapping("/admin/jiaspecial")
-	public String addspecial(ModelMap map,Integer aid,Integer sid){
-		HashMap<String, Object> hashMap = new HashMap<String,Object>();
-		System.out.println(sid);
-		hashMap.put("aid", aid);
-		hashMap.put("sid", sid);
-		
-		int i = articleService.addspecial(hashMap);
-		
-		
-		return "redirect:/admin/findbyspecial";
-		
-	}
-	@RequestMapping("/admin/updatespe")
-	@ResponseBody
-	public Special updatespe(ModelMap map,Integer id) throws ParseException{
-		Special special = articleService.updatespe(id);
-		String string = special.getCreated();
-		String[] split = string.split(" ");
-		special.setCreated(split[0]);
-		return special;
-		
-	}
-	
-	@RequestMapping("/admin/update")
-	public String update(ModelMap map,Integer id){
-		map.addAttribute("id",id);
-		return "/admin/updatespe";
-		
-	}
-	
-	@RequestMapping("/admin/updateAll")
-	public String updateAll(ModelMap map,Special special){
-		int i =articleService.updateAll(special);
-		
-		return "redirect:/admin/findbyspecial";
-		
-	}
 }

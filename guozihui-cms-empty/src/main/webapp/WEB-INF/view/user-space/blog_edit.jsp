@@ -47,46 +47,17 @@
 				    	<h1>发布博客</h1>
 				    	<hr/>
 				    	
-				    	<form action="/my/blog/save" enctype="multipart/form-data" method="post" >
+				     <form action="/my/blog/save" enctype="multipart/form-data" method="post" > 
 				    	<input type="hidden" value="${blog.id}" name="id">
-				    	<p align="center" class="red"> </p>
-				    	<p>
+				    	<!-- <p align="center" class="red"> </p>
+				    	 <p>
 				    		<span>频道</span>
 				    		<select id="channel" name="channel.id"></select>
 				    		
 				    		<span>种类</span>
 				    		<select id="category" name="category.id"></select>
-				    	</p>
-				    	<p>
-				    		<button type="button"  class="btn btn-info btn-block" onclick="addpic()" style="width: 330px">添加图片</button> 
-				    		<div  id="addpic">
-				    		
-				    		</div>
-				    	</p>
-				    	
-				    	<p>
-				    		<input name="title" value="${blog.title}" class="form-control" placeholder="博客标题"/>
-				    		<span class="red"></span>
-				    	</p>
-				    	<p>
-				    		<textarea name="content" rows="30"  class="form-control" placeholder="摘要">${blog.content }</textarea>
-				    		<span class="red"></span>
-				    	</p>
-				    	
-				    	<p>
-				    		<textarea name="summary" rows="3" class="form-control" placeholder="摘要">${blog.summary }</textarea>
-				    		<span class="red"></span>
-				    	</p>
-				    	
-				    	
-				    	<p>上传封面：<input type="file" name="file"/>
-					  
-				    	</p>
-				    	
-				    	<p>
-				    		<button type="submit" class="btn btn-info btn-block">保存</button> 
-				    	</p>
-				    	
+				    	</p> -->
+				    	 
 				    	</form>
 				  </div>
 				</div>
@@ -151,6 +122,54 @@
 		function addpic(){
 			$("#addpic").append("</br><input type='file' name='photo' ><br><input name='desc'  class='form-control' placeholder='图片描述'/> ")
 		}
+		
+			$(document).ready(function(){
+			
+			$("#content").summernote({
+				placeholder:'博客内容',
+				height:300
+			});
+			
+			// 标题样式控制
+			$('#title').data("color",$('#title').css('color'));
+			
+			$("#bTitle").click(function(){
+				var font_weight = $("#title").css("font-weight");
+				if (font_weight == 400) {
+					$("#title").css("font-weight","bold");
+				} else {
+					$("#title").css("font-weight","normal");
+				}
+			})
+			$("#iTitle").click(function(){
+				var font_style = $("#title").css("font-style");
+				if (font_style == "italic") {
+					$("#title").css("font-style","normal");
+				} else {
+					$("#title").css("font-style","italic");
+				}
+			})
+			$("#rTitle").click(function(){
+				var color = $("#title").css("color");
+				if (color == "rgb(255, 0, 0)") {
+					$("#title").css("color",$('#title').data("color"));
+				} else {
+					$("#title").css("color","rgb(255, 0, 0)");
+				}
+			})
+			
+			$('#blog').submit(function(){
+				var title = $("#title").val();
+				var font_weight = $("#title").css("font-weight");
+				var font_style = $("#title").css("font-style");
+				var color = $("#title").css("color");
+				title = '<span style="font-weight:'+font_weight+'; font-style:'+font_style+'; color:'+color+'">'+title+'</span>'
+				$('#title').val(title);
+				return true;
+			})
+			
+			
+		});
 	</script>
   </body>
 </html>
