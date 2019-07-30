@@ -56,12 +56,6 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.queryAll(article);
 	}
 
-	@Override
-	public Article selectByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return articleMapper.selectByPrimaryKey(id);
-	}
-
 	
 
 	

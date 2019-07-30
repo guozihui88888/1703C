@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.ListModel;
 
 import org.apache.commons.io.FilenameUtils;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
@@ -29,7 +30,6 @@ import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
 import com.guozihui.cms.domain.Category;
 import com.guozihui.cms.domain.Channel;
-import com.guozihui.cms.domain.Picture;
 import com.guozihui.cms.domain.User;
 import com.guozihui.cms.service.ArticleService;
 import com.guozihui.cms.service.UserService;
@@ -80,16 +80,6 @@ public class UserController {
 		return "user-space/blog_list";
 		
 	}
-	@RequestMapping("/blog/")
-	public String edit(Integer id,ModelMap map){
-		if(id!=null){
-			Article article = articleService.selectByPrimaryKey(id);
-			map.put("blog",article);
-		}
-		
-		return "user-space/blog_edit";
-		
-	}
 	
-
+	
 }

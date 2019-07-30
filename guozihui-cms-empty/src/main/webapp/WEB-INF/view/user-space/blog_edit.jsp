@@ -48,16 +48,8 @@
 				    	<hr/>
 				    	
 				     <form action="/my/blog/save" enctype="multipart/form-data" method="post" > 
-				    	<input type="hidden" value="${blog.id}" name="id">
-				    	<!-- <p align="center" class="red"> </p>
-				    	 <p>
-				    		<span>频道</span>
-				    		<select id="channel" name="channel.id"></select>
-				    		
-				    		<span>种类</span>
-				    		<select id="category" name="category.id"></select>
-				    	</p> -->
-				    	 
+				 		  <p align="center" class="red"> </p>
+				 		
 				    	</form>
 				  </div>
 				</div>
@@ -119,9 +111,6 @@
 				}
 			});
 		});
-		function addpic(){
-			$("#addpic").append("</br><input type='file' name='photo' ><br><input name='desc'  class='form-control' placeholder='图片描述'/> ")
-		}
 		
 			$(document).ready(function(){
 			
@@ -131,32 +120,43 @@
 			});
 			
 			// 标题样式控制
-			$('#title').data("color",$('#title').css('color'));
-			
-			$("#bTitle").click(function(){
-				var font_weight = $("#title").css("font-weight");
-				if (font_weight == 400) {
-					$("#title").css("font-weight","bold");
-				} else {
-					$("#title").css("font-weight","normal");
-				}
-			})
-			$("#iTitle").click(function(){
-				var font_style = $("#title").css("font-style");
-				if (font_style == "italic") {
-					$("#title").css("font-style","normal");
-				} else {
-					$("#title").css("font-style","italic");
-				}
-			})
-			$("#rTitle").click(function(){
-				var color = $("#title").css("color");
-				if (color == "rgb(255, 0, 0)") {
-					$("#title").css("color",$('#title').data("color"));
-				} else {
-					$("#title").css("color","rgb(255, 0, 0)");
-				}
-			})
+		
+		$("#bTitle").click(function(){
+			var style = $("#title").attr("style");
+			if(style.indexOf("font-weight: bolder;")!=-1){
+				var str=style.replace("font-weight: bolder;","");
+				$("#title").attr("style",str);
+				$("#style").val($("#title").attr("style"));
+			}else{
+				$("#title").attr("style",style+"font-weight: bolder;");
+				$("#style").val($("#title").attr("style"));
+			}
+		})
+		
+		
+		$("#iTitle").click(function(){
+			var style = $("#title").attr("style");
+			if(style.indexOf("font-style: italic;")!=-1){
+				var str=style.replace("font-style: italic;","");
+				$("#title").attr("style",str);
+				$("#style").val($("#title").attr("style"));
+			}else{
+				$("#title").attr("style",style+"font-style: italic;");
+				$("#style").val($("#title").attr("style"));
+			}
+		})
+		
+		$("#rTitle").click(function(){
+			var style = $("#title").attr("style");
+			if(style.indexOf("color: red;")!=-1){
+				var str=style.replace("color: red;","");
+				$("#title").attr("style",str);
+				$("#style").val($("#title").attr("style"));
+			}else{
+				$("#title").attr("style",style+"color: red;");
+				$("#style").val($("#title").attr("style"));
+			}
+		})
 			
 			$('#blog').submit(function(){
 				var title = $("#title").val();

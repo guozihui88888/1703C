@@ -44,6 +44,7 @@
 				<!-- 文章 -->
 				<h2 align="center">${blog.title}</h2>
 				<div class="text-center">
+					<li class="text-truncate"><a href="/article/${article.id}" style="${article.style}">${article.title}</a></li>
 					作者：${blog.author.nickname}&nbsp;&nbsp;&nbsp;&nbsp;
 					浏览：${blog.hits}
 					<input type="hidden" id="articleId" value="${blog.id }"
@@ -85,7 +86,7 @@
 				
 
 				
-				<%-- <div class="text-right">发布时间：<fmt:formatDate value="${blog.created}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+			 <div class="text-right">发布时间：<fmt:formatDate value="${blog.created}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 				
 				<hr/>
 				
@@ -105,7 +106,7 @@
 						  </div>
 						</div>
 					</c:forEach>
-				</div> --%>
+				</div>
 				<div>
 					<form id="comment" name="comment" method="post">
 						<input type="hidden" name="blog.id" id="blogId" value="${ blog.id}"/>

@@ -25,8 +25,5 @@ public interface UserMapper {
 
 	public int count(User user);
 
-	public void updatebyId(User user);
-
-	public void UpdateAvatar(User user);
 	
 }

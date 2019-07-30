@@ -35,7 +35,7 @@ public interface ArticleService {
 
 	public abstract List<Article> queryAll(Article article);
 
-	public abstract Article selectByPrimaryKey(Integer id);
+
 
 
 

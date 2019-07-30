@@ -19,10 +19,7 @@ public interface UserService {
 
 	public int count(User user);
 
-	public abstract void updatebyId(User user);
 
-	public abstract User selectById(Integer id);
 
-	public abstract void UpdateAvatar(User user);
 
 }

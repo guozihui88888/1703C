@@ -5,6 +5,7 @@ package com.guozihui.cms.web.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,6 @@ import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
 import com.guozihui.cms.domain.Category;
 import com.guozihui.cms.domain.Channel;
-import com.guozihui.cms.domain.Picture;
 import com.guozihui.cms.domain.Slide;
 import com.guozihui.cms.domain.Special;
 import com.guozihui.cms.service.ArticleService;
@@ -47,6 +47,8 @@ public class HomeController {
 	@Resource
 	private SlideService slideService;
 	
+	public static List<Article> articles = null;
+	
 	@RequestMapping({"/", "/index", "/home"})
 	public String home(
 			@RequestParam(required = false) Integer channel, //频道
@@ -62,11 +64,12 @@ public class HomeController {
 		Article conditions = new Article();
 		conditions.setDeleted(false);
 		conditions.setStatus(1);
-
+		
+		
+		// TODO Auto-generated method stub				
 		//默认首页显示热门文章
 		if(category == null && channel == null){
-			conditions.setHot(true);
-			
+			conditions.setHot(true);					
 			//热门文章时显示幻灯片
 			List<Slide> slides = slideService.getTops(5);
 			model.addAttribute("slides", slides);
@@ -82,7 +85,7 @@ public class HomeController {
 		articles = articleService.gets(conditions, _page, null);
 		model.addAttribute("articles", articles);
 		
-
+		
 		//---------------右侧放10条最新文章---------------------
 		Article lastArticlesConditions = new Article();
 		lastArticlesConditions.setDeleted(false);
@@ -93,15 +96,18 @@ public class HomeController {
 		
 		List<Article> lastArticles = articleService.gets(lastArticlesConditions, lastArticlesPage, null);
 		model.addAttribute("lastArticles", lastArticles);
-
+		
+		
+		
 		if(channel != null){
 			model.addAttribute("channel", new Channel(channel));
 		}
-		
 		model.addAttribute("category", category);
+		
 		
 		return "home";
 	}
+	
 	
 	
 }

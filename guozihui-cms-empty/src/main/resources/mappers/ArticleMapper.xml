@@ -23,6 +23,7 @@
     
     <result column="category_id" property="category.id" jdbcType="INTEGER"/>
     <result column="category_name" property="category.name" jdbcType="VARCHAR"/>
+    <result column="style" property="style" jdbcType="VARCHAR"/>
     
     <!-- 多对一查询自动映射实体 
     <association property="channel">
@@ -119,6 +120,9 @@
       <if test="content != null">
         content,
       </if>
+       <if test="style != null">
+       style,
+      </if>
     </trim>
  
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -161,12 +165,15 @@
       <if test="content != null">
         #{content,jdbcType=CLOB},
       </if>
+      <if test="style != null">
+        #{style,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 	SELECT 
-		b.id, b.title, b.picture, b.summary, b.content, b.channel_id, b.category_id, b.user_id, b.hits, b.hot, b.created, b.updated, 
+		b.id, b.title, b.picture, b.summary, b.content, b.channel_id, b.category_id, b.user_id, b.hits, b.hot, b.created,b.style,b.updated, 
 		u.id as author_id,
 		u.nickname as author_nickname,
 		ch.id as channel_id,
@@ -183,7 +190,7 @@
 
   <select id="selects" resultMap="BaseResultMap">
 	SELECT 
-		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, 
+		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted,b.style,b.created, b.updated,b.articletype, 
 		u.id as author_id,
 		u.nickname as author_nickname,
 		ch.id as channel_id,
@@ -215,7 +222,9 @@
     <if test="article.hot != null">
     	AND b.hot = #{article.hot,jdbcType=BIT}
     </if>
-    
+    <if test="article.articletype != null">
+    	AND b.articletype = #{article.articletype,jdbcType=INTEGER}
+    </if>
     <if test="order == null">
 	    ORDER BY created desc
     </if>
@@ -233,7 +242,7 @@
   
   <select id="queryAll" parameterType="article" resultType="article">
 	SELECT 
-		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, 
+		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted,b.style,b.created,b.style,b.updated, 
 		u.id as author_id,
 		u.nickname as author_nickname,
 		ch.id as channel_id,
@@ -264,7 +273,10 @@
     </if>
     <if test="article.hot != null">
     	AND b.hot = #{article.hot,jdbcType=BIT}
-    </if>    
+    </if>
+     <if test="article.style != null">
+    	AND b.style = #{article.style,jdbcType=BIT}
+    </if>      
   </select>
   
   <select id="count" resultType="java.lang.Integer">
@@ -367,9 +379,6 @@
 	</update>
 	
 	
-	<delete id="deleteByPrimaryKey" parameterType="int">
-		delete from  cms_article  where id=#{id,jdbcType=INTEGER}
-	</delete>
 	
 	
 	<select id="queryHotAll" parameterType="article" resultType="article">
@@ -407,11 +416,6 @@
     	AND hot = #{article.hot,jdbcType=BIT}
     </if>    
   </select>
-  
-  <update id="updatearticle" parameterType="int">
-  	update  cms_article 
-  	set deleted=1 where id=#{id}
-  </update>
   
   
 </mapper>

@@ -65,8 +65,27 @@ public class Article implements Serializable {
 	/**更新时间**/
 	private Date updated;
 
+	private String style;
 	
+	private Integer articletype;
 	//---------------------------------------------------------------------
+
+	
+	public String getStyle() {
+		return style;
+	}
+
+	public Integer getArticletype() {
+		return articletype;
+	}
+
+	public void setArticletype(Integer articletype) {
+		this.articletype = articletype;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
 
 	public Article() {
 		super();
@@ -218,6 +237,17 @@ public class Article implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", title=" + title + ", summary="
+				+ summary + ", content=" + content + ", picture=" + picture
+				+ ", channel=" + channel + ", category=" + category
+				+ ", author=" + author + ", hits=" + hits + ", hot=" + hot
+				+ ", status=" + status + ", deleted=" + deleted + ", created="
+				+ created + ", updated=" + updated + ", style=" + style
+				+ ", articletype=" + articletype + "]";
 	}
 	
 }
