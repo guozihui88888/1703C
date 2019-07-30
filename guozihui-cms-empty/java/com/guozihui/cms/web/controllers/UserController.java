@@ -30,6 +30,7 @@ import com.guozihui.cms.core.Page;
 import com.guozihui.cms.domain.Article;
 import com.guozihui.cms.domain.Category;
 import com.guozihui.cms.domain.Channel;
+import com.guozihui.cms.domain.Picture;
 import com.guozihui.cms.domain.User;
 import com.guozihui.cms.service.ArticleService;
 import com.guozihui.cms.service.UserService;
@@ -72,7 +73,6 @@ public class UserController {
 	article.setAuthor(user);
 	PageHelper.startPage(page,3);
 	List<Article> blogs =articleService.queryAll(article);
-	System.out.println(blogs);
 	PageInfo<Article> pageInfo = new PageInfo<Article>(blogs);
 	String pageList = PageHelpUtil.page("blogs", pageInfo);
 	map.put("pageList", pageList);
@@ -81,5 +81,50 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping("/blog/edit")
+	public String edit(ModelMap  map){
+		
+		return "/user-space/blog_edit";
+	}
 	
+	@RequestMapping("/blog/save")
+	public String save(MultipartFile[] photos,MultipartFile photo,String[] desc,Article article,HttpServletRequest request,Integer id){
+		ArrayList<Picture> pictures = new ArrayList<Picture>();
+		for (int i = 0; i < desc.length; i++) {
+			Picture picture = new Picture();
+			if(!photos.equals("")){
+				String upload = FileUploadUtil.upload(request, photos[i]);
+				picture.setPhoto(upload);
+			}
+			if(!desc.equals("")){
+				picture.setDesc(desc[i]);
+			}
+			
+			if(picture!=null){
+				pictures.add(picture);
+			}
+			
+		}
+		
+		
+		Date date = new Date();
+		article.setCreated(date);
+		article.setUpdated(date);
+		article.setStatus(1);
+		article.setDeleted(false);
+		article.setHot(true);
+		article.setHits(1);
+		article.setAuthor((User) request.getSession().getAttribute(Constant.LOGIN_USER));
+		String upload = FileUploadUtil.upload(request, photo);
+		article.setPicture(upload);
+		article.setContent(JSON.toJSONString(pictures));
+		
+		if(id!=null){
+			articleService.update(article);
+		}
+		articleService.save(article);
+		
+		
+		return "/user-space/blog_edit";
+	}
 }

@@ -18,8 +18,4 @@ public class ClassTest {
 	@Autowired
 	ArticleService service;
 	
-	@Test
-	public void Test1(){
-		
-	}
 }

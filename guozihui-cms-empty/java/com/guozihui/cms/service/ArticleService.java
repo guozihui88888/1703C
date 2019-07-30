@@ -35,6 +35,14 @@ public interface ArticleService {
 
 	public abstract List<Article> queryAll(Article article);
 
+	public abstract void update(Article article);
+
+	public abstract void save(Article article);
+
+	public abstract Article selectByPrimaryKey(Integer id);
+
+	public abstract void increaseHit(Integer id);
+
 
 
 

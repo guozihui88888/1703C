@@ -49,7 +49,25 @@
 				    	
 				     <form action="/my/blog/save" enctype="multipart/form-data" method="post" > 
 				 		  <p align="center" class="red"> </p>
-				 		
+				 			<span>频道</span>
+				 			<select id="channel" name="channel.id"> </select>
+				 			<span>分类</span>
+				 			<select id="category" name="category.id"> </select><br>
+				 			<input type="text" name="title" id="title" value="${blog.title}" style="" class="form-control" placeholder="请输入标题"/>
+				 			<button id="bTitle" type="button" class="btn btn-default">B</button>
+				    		<button id="iTitle" type="button" class="btn btn-default">I</button>
+				    		<button id="rTitle" type="button" class="btn btn-default">R</button><br>
+				 			<input name="style" id="style" type="hidden">
+				 			
+				 			<input type="hidden" value="${user.id}" name="id">
+				 			<input type="button" value="添加图片" onclick="addpic()">
+				 			<div id="addpic">
+				 			
+				 			</div>
+				 			<input type="text" name="summary"  class="form-control" placeholder="请输入相关描述" style="height: 300px"/>
+				 			<input type="file" name="photo">
+				 			
+				 			<button type="submit" class="btn btn-info btn-block">保存</button> 
 				    	</form>
 				  </div>
 				</div>
@@ -69,6 +87,11 @@
 			});
 		}); */
 		//加载所有频道
+		function addpic(){
+			$("#addpic").append("<br><input type='file' name='photos' ><br><input type='text' name='desc'  placeholder='图片描述'>")
+		}
+		
+		
 		$.ajax({
 			url :'/queryAllChannel',
 			dataType : 'json',
